@@ -57,7 +57,12 @@ app.post("/posts", async (req,res) => {
 
 app.get("/posts",async(req,res) =>{
     try {
-        const data = await posts.findAll()
+        const {userId} = req.query
+        const data = await posts.findAll({
+            where:{
+                userId
+            }
+        })
         res.status(200).json({data})
     } catch (error) {
         res.send(error.message)
